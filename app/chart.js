@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useRef } from "react";
-import { AxisScrollStrategies, lightningChart } from "@arction/lcjs";
+import { AxisScrollStrategies, lightningChart } from "@lightningchart/lcjs";
 
 const Chart = (props) => {
   const { id, data } = props;
@@ -13,7 +13,8 @@ const Chart = (props) => {
       return;
     }
 
-    const chart = lightningChart()
+    const lc = lightningChart();
+    const chart = lc
       .ChartXY({ container })
       .setTitle("LightningChart JS x Next.js");
     const lineSeries = chart.addLineSeries({
@@ -26,7 +27,7 @@ const Chart = (props) => {
       .setInterval({ start: -100, end: 0, stopAxisAfter: false });
 
     return () => {
-      chart.dispose();
+      lc.dispose();
       chartRef.current = null;
     };
   }, []);
