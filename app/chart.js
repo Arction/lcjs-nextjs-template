@@ -1,6 +1,10 @@
 "use client";
 import React, { useEffect, useRef } from "react";
-import { AxisScrollStrategies, lightningChart } from "@lightningchart/lcjs";
+import {
+  AxisScrollStrategies,
+  lightningChart,
+  emptyFill,
+} from "@lightningchart/lcjs";
 
 const Chart = (props) => {
   const { id, data } = props;
@@ -17,9 +21,12 @@ const Chart = (props) => {
     const chart = lc
       .ChartXY({ container })
       .setTitle("LightningChart JS x Next.js");
-    const lineSeries = chart.addLineSeries({
-      dataPattern: { pattern: "ProgressiveX" },
-    });
+    const lineSeries = chart
+      .addPointLineAreaSeries({
+        dataPattern: "ProgressiveX",
+      })
+      .setAreaFillStyle(emptyFill)
+      .setMaxSampleCount(100_00);
     chartRef.current = { chart, lineSeries };
     chart
       .getDefaultAxisX()
@@ -34,7 +41,7 @@ const Chart = (props) => {
 
   useEffect(() => {
     const { lineSeries } = chartRef.current;
-    lineSeries.add(data);
+    lineSeries.appendJSON(data);
   }, [data]);
 
   return (

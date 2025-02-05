@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@lightningchart/lcjs": "^6.0.0",
+    "@lightningchart/lcjs": "^7.0.1",
     "next": "latest",
     "react": "latest",
     "react-dom": "latest",
